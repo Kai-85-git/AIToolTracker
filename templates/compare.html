@@ -1,0 +1,169 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col">
+            <h2>Tool Comparison</h2>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary btn-sm">
+                <i data-feather="arrow-left"></i> Back to Tools
+            </a>
+        </div>
+    </div>
+
+    {% if tools|length < 2 %}
+    <div class="alert alert-warning">
+        Please select at least two tools to compare.
+    </div>
+    {% else %}
+    <div class="table-responsive">
+        <table class="table table-dark table-bordered">
+            <thead>
+                <tr>
+                    <th style="width: 150px">Feature</th>
+                    {% for tool in tools %}
+                    <th class="text-center">{{ tool.name }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Basic Information -->
+                <tr>
+                    <td class="fw-bold">Developer</td>
+                    {% for tool in tools %}
+                    <td class="text-center">{{ tool.developer }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td class="fw-bold">Category</td>
+                    {% for tool in tools %}
+                    <td class="text-center">
+                        <span class="category-badge">{{ tool.category }}</span>
+                    </td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td class="fw-bold">API Access</td>
+                    {% for tool in tools %}
+                    <td class="text-center">
+                        {% if tool.api_access %}
+                        <i data-feather="check" class="text-success"></i>
+                        {% else %}
+                        <i data-feather="x" class="text-danger"></i>
+                        {% endif %}
+                    </td>
+                    {% endfor %}
+                </tr>
+
+                <!-- Description -->
+                <tr>
+                    <td class="fw-bold">Description</td>
+                    {% for tool in tools %}
+                    <td>{{ tool.description }}</td>
+                    {% endfor %}
+                </tr>
+
+                <!-- Features -->
+                <tr>
+                    <td class="fw-bold">Features</td>
+                    {% for tool in tools %}
+                    <td>
+                        {% if tool.features %}
+                        {{ tool.features }}
+                        {% else %}
+                        <span class="text-muted">No features listed</span>
+                        {% endif %}
+                    </td>
+                    {% endfor %}
+                </tr>
+
+                <!-- Pricing -->
+                <tr>
+                    <td class="fw-bold">Pricing</td>
+                    {% for tool in tools %}
+                    <td>
+                        {% if tool.pricing %}
+                        {{ tool.pricing }}
+                        {% else %}
+                        <span class="text-muted">No pricing information</span>
+                        {% endif %}
+                    </td>
+                    {% endfor %}
+                </tr>
+
+                <!-- Tags -->
+                <tr>
+                    <td class="fw-bold">Tags</td>
+                    {% for tool in tools %}
+                    <td>
+                        <div class="tags">
+                            {% for tag in tool.tags.split(',') %}
+                            <span class="tag">{{ tag.strip() }}</span>
+                            {% endfor %}
+                        </div>
+                    </td>
+                    {% endfor %}
+                </tr>
+
+                <!-- Notes -->
+                <tr>
+                    <td class="fw-bold">Notes</td>
+                    {% for tool in tools %}
+                    <td>
+                        {% if tool.notes %}
+                        {{ tool.notes }}
+                        {% else %}
+                        <span class="text-muted">No notes added</span>
+                        {% endif %}
+                    </td>
+                    {% endfor %}
+                </tr>
+
+                <!-- Links -->
+                <tr>
+                    <td class="fw-bold">Actions</td>
+                    {% for tool in tools %}
+                    <td class="text-center">
+                        <a href="{{ tool.url }}" class="btn btn-primary btn-sm mb-2" target="_blank">
+                            Visit Website
+                        </a>
+                        <a href="{{ url_for('tool_detail', tool_id=tool.id) }}" class="btn btn-secondary btn-sm">
+                            View Details
+                        </a>
+                    </td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+    .table-dark {
+        background-color: var(--darker-bg);
+        color: var(--light-text);
+    }
+    
+    .table-dark td, .table-dark th {
+        border-color: rgba(255,255,255,0.1);
+    }
+
+    .feather {
+        width: 18px;
+        height: 18px;
+        vertical-align: text-bottom;
+    }
+
+    @media (max-width: 768px) {
+        .table-responsive {
+            font-size: 0.9rem;
+        }
+        
+        .btn-sm {
+            font-size: 0.8rem;
+            padding: 0.2rem 0.4rem;
+        }
+    }
+</style>
+{% endblock %}
