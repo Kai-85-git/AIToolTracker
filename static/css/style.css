@@ -78,7 +78,7 @@ body {
 
 .category-badge {
     background-color: var(--secondary);
-    color: var(--darker-bg);
+    color: #222222;  /* フォントの色を黒よりの色に変更 */
     padding: 0.3rem 0.6rem;
     border-radius: 4px;
 }
