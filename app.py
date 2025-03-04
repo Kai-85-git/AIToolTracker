@@ -37,7 +37,7 @@ def index():
 @app.route('/tool/<int:tool_id>')
 def tool_detail(tool_id):
     tool = AITool.query.get_or_404(tool_id)
-    return render_template('tool_detail.html', tool=tool)
+    return render_template('tool_detail.html', tool=tool, categories=CATEGORIES)
 
 @app.route('/tool/add', methods=['POST'])
 def add_tool():
