@@ -27,7 +27,20 @@ from models import AITool
 with app.app_context():
     db.create_all()
 
-CATEGORIES = ['テキスト生成', '画像生成', '音声生成', '動画生成', 'コード生成', 'その他']
+CATEGORIES = [
+    'テキスト生成',
+    '画像生成',
+    '音声生成',
+    '動画生成',
+    'コード生成',
+    '3D生成',
+    'プレゼン生成',
+    '検索生成',
+    'マインドマップ生成',
+    '議事録生成',
+    'AI開発',
+    'その他'
+]
 
 @app.route('/')
 def index():
