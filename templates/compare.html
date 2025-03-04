@@ -4,38 +4,38 @@
 <div class="container-fluid">
     <div class="row mb-4">
         <div class="col">
-            <h2>Tool Comparison</h2>
+            <h2>ツール比較</h2>
             <a href="{{ url_for('index') }}" class="btn btn-secondary btn-sm">
-                <i data-feather="arrow-left"></i> Back to Tools
+                <i data-feather="arrow-left"></i> ツール一覧に戻る
             </a>
         </div>
     </div>
 
     {% if tools|length < 2 %}
     <div class="alert alert-warning">
-        Please select at least two tools to compare.
+        比較するには2つ以上のツールを選択してください。
     </div>
     {% else %}
     <div class="table-responsive">
         <table class="table table-dark table-bordered">
             <thead>
                 <tr>
-                    <th style="width: 150px">Feature</th>
+                    <th style="width: 150px">機能</th>
                     {% for tool in tools %}
                     <th class="text-center">{{ tool.name }}</th>
                     {% endfor %}
                 </tr>
             </thead>
             <tbody>
-                <!-- Basic Information -->
+                <!-- 基本情報 -->
                 <tr>
-                    <td class="fw-bold">Developer</td>
+                    <td class="fw-bold">開発元</td>
                     {% for tool in tools %}
                     <td class="text-center">{{ tool.developer }}</td>
                     {% endfor %}
                 </tr>
                 <tr>
-                    <td class="fw-bold">Category</td>
+                    <td class="fw-bold">カテゴリー</td>
                     {% for tool in tools %}
                     <td class="text-center">
                         <span class="category-badge">{{ tool.category }}</span>
@@ -43,7 +43,7 @@
                     {% endfor %}
                 </tr>
                 <tr>
-                    <td class="fw-bold">API Access</td>
+                    <td class="fw-bold">API アクセス</td>
                     {% for tool in tools %}
                     <td class="text-center">
                         {% if tool.api_access %}
@@ -55,45 +55,45 @@
                     {% endfor %}
                 </tr>
 
-                <!-- Description -->
+                <!-- 説明 -->
                 <tr>
-                    <td class="fw-bold">Description</td>
+                    <td class="fw-bold">説明</td>
                     {% for tool in tools %}
                     <td>{{ tool.description }}</td>
                     {% endfor %}
                 </tr>
 
-                <!-- Features -->
+                <!-- 機能 -->
                 <tr>
-                    <td class="fw-bold">Features</td>
+                    <td class="fw-bold">機能</td>
                     {% for tool in tools %}
                     <td>
                         {% if tool.features %}
                         {{ tool.features }}
                         {% else %}
-                        <span class="text-muted">No features listed</span>
+                        <span class="text-muted">機能情報なし</span>
                         {% endif %}
                     </td>
                     {% endfor %}
                 </tr>
 
-                <!-- Pricing -->
+                <!-- 料金プラン -->
                 <tr>
-                    <td class="fw-bold">Pricing</td>
+                    <td class="fw-bold">料金プラン</td>
                     {% for tool in tools %}
                     <td>
                         {% if tool.pricing %}
                         {{ tool.pricing }}
                         {% else %}
-                        <span class="text-muted">No pricing information</span>
+                        <span class="text-muted">料金情報なし</span>
                         {% endif %}
                     </td>
                     {% endfor %}
                 </tr>
 
-                <!-- Tags -->
+                <!-- タグ -->
                 <tr>
-                    <td class="fw-bold">Tags</td>
+                    <td class="fw-bold">タグ</td>
                     {% for tool in tools %}
                     <td>
                         <div class="tags">
@@ -105,30 +105,30 @@
                     {% endfor %}
                 </tr>
 
-                <!-- Notes -->
+                <!-- メモ -->
                 <tr>
-                    <td class="fw-bold">Notes</td>
+                    <td class="fw-bold">メモ</td>
                     {% for tool in tools %}
                     <td>
                         {% if tool.notes %}
                         {{ tool.notes }}
                         {% else %}
-                        <span class="text-muted">No notes added</span>
+                        <span class="text-muted">メモなし</span>
                         {% endif %}
                     </td>
                     {% endfor %}
                 </tr>
 
-                <!-- Links -->
+                <!-- リンク -->
                 <tr>
-                    <td class="fw-bold">Actions</td>
+                    <td class="fw-bold">アクション</td>
                     {% for tool in tools %}
                     <td class="text-center">
                         <a href="{{ tool.url }}" class="btn btn-primary btn-sm mb-2" target="_blank">
-                            Visit Website
+                            サイトへ移動
                         </a>
                         <a href="{{ url_for('tool_detail', tool_id=tool.id) }}" class="btn btn-secondary btn-sm">
-                            View Details
+                            詳細を見る
                         </a>
                     </td>
                     {% endfor %}
@@ -144,7 +144,7 @@
         background-color: var(--darker-bg);
         color: var(--light-text);
     }
-    
+
     .table-dark td, .table-dark th {
         border-color: rgba(255,255,255,0.1);
     }
@@ -159,7 +159,7 @@
         .table-responsive {
             font-size: 0.9rem;
         }
-        
+
         .btn-sm {
             font-size: 0.8rem;
             padding: 0.2rem 0.4rem;

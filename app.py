@@ -27,7 +27,7 @@ from models import AITool
 with app.app_context():
     db.create_all()
 
-CATEGORIES = ['Text Generation', 'Image Generation', 'Audio Generation', 'Video Generation', 'Code Generation', 'Other']
+CATEGORIES = ['テキスト生成', '画像生成', '音声生成', '動画生成', 'コード生成', 'その他']
 
 @app.route('/')
 def index():
@@ -56,9 +56,9 @@ def add_tool():
         )
         db.session.add(tool)
         db.session.commit()
-        flash('Tool added successfully!', 'success')
+        flash('ツールが正常に登録されました！', 'success')
     except Exception as e:
-        flash(f'Error adding tool: {str(e)}', 'error')
+        flash(f'ツールの登録中にエラーが発生しました: {str(e)}', 'error')
     return redirect(url_for('index'))
 
 @app.route('/tool/edit/<int:tool_id>', methods=['POST'])
@@ -76,9 +76,9 @@ def edit_tool(tool_id):
         tool.tags = request.form['tags']
         tool.notes = request.form['notes']
         db.session.commit()
-        flash('Tool updated successfully!', 'success')
+        flash('ツールが正常に更新されました！', 'success')
     except Exception as e:
-        flash(f'Error updating tool: {str(e)}', 'error')
+        flash(f'ツールの更新中にエラーが発生しました: {str(e)}', 'error')
     return redirect(url_for('tool_detail', tool_id=tool_id))
 
 @app.route('/tool/delete/<int:tool_id>', methods=['POST'])
@@ -87,9 +87,9 @@ def delete_tool(tool_id):
     try:
         db.session.delete(tool)
         db.session.commit()
-        flash('Tool deleted successfully!', 'success')
+        flash('ツールが正常に削除されました！', 'success')
     except Exception as e:
-        flash(f'Error deleting tool: {str(e)}', 'error')
+        flash(f'ツールの削除中にエラーが発生しました: {str(e)}', 'error')
     return redirect(url_for('index'))
 
 @app.route('/compare')
