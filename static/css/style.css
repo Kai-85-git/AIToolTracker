@@ -6,6 +6,7 @@
     --secondary: #03dac6;
     --error: #cf6679;
     --success: #4caf50;
+    --category-text: #222222;  /* カテゴリーテキスト用の新しい変数 */
 }
 
 body {
@@ -41,7 +42,7 @@ body {
 .btn-secondary {
     background-color: var(--secondary);
     border-color: var(--secondary);
-    color: var(--darker-bg);
+    color: var(--category-text);
 }
 
 .alert-success {
@@ -58,6 +59,17 @@ body {
     background-color: rgba(255,255,255,0.1);
     border: 1px solid rgba(255,255,255,0.2);
     color: var(--light-text);
+}
+
+/* カテゴリー選択メニューのスタイル */
+select[name="category"] {
+    background-color: var(--secondary);
+    color: var(--category-text);
+}
+
+select[name="category"] option {
+    background-color: var(--secondary);
+    color: var(--category-text);
 }
 
 .form-control:focus {
@@ -78,9 +90,10 @@ body {
 
 .category-badge {
     background-color: var(--secondary);
-    color: #222222;  /* フォントの色を黒よりの色に変更 */
+    color: var(--category-text);
     padding: 0.3rem 0.6rem;
     border-radius: 4px;
+    font-weight: 500;
 }
 
 .loading-spinner {
@@ -93,7 +106,7 @@ body {
     .container {
         padding: 0.5rem;
     }
-    
+
     .card {
         margin: 0.5rem 0;
     }
