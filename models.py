@@ -1,5 +1,13 @@
-from app import db
+from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from sqlalchemy.orm import DeclarativeBase
+
+# データベース設定のための基本クラス
+class Base(DeclarativeBase):
+    pass
+
+# データベースインスタンスを作成
+db = SQLAlchemy(model_class=Base)
 
 class AITool(db.Model):
     id = db.Column(db.Integer, primary_key=True)
