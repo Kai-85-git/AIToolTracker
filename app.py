@@ -1,17 +1,11 @@
 import os
 from flask import Flask, render_template, request, jsonify, redirect, url_for, flash
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import DeclarativeBase
 import logging
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
 
 # Initialize Flask app
-class Base(DeclarativeBase):
-    pass
-
-db = SQLAlchemy(model_class=Base)
 app = Flask(__name__)
 app.secret_key = os.environ.get("SESSION_SECRET", "dev_key")
 
@@ -19,10 +13,12 @@ app.secret_key = os.environ.get("SESSION_SECRET", "dev_key")
 database_url = os.environ.get("DATABASE_URL", "sqlite:///memory:")
 app.config["SQLALCHEMY_DATABASE_URI"] = database_url 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-db.init_app(app)
 
-# Import models after db initialization
-from models import AITool
+# モデルとデータベースをインポート
+from models import db, AITool
+
+# データベースをアプリケーションに初期化
+db.init_app(app)
 
 # Create all database tables
 with app.app_context():
