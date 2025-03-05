@@ -15,8 +15,9 @@ db = SQLAlchemy(model_class=Base)
 app = Flask(__name__)
 app.secret_key = os.environ.get("SESSION_SECRET", "dev_key")
 
-# Configure SQLite database
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///ai_tools.db"
+# Vercel向けの設定: メモリ内データベース (デモ用) または環境変数から取得したデータベースURL
+database_url = os.environ.get("DATABASE_URL", "sqlite:///memory:")
+app.config["SQLALCHEMY_DATABASE_URI"] = database_url 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 
@@ -26,6 +27,49 @@ from models import AITool
 # Create all database tables
 with app.app_context():
     db.create_all()
+    
+    # デモデータを追加（データベースが空の場合）
+    if not AITool.query.first():
+        demo_tools = [
+            AITool(
+                name="GPT-4",
+                url="https://openai.com/gpt-4",
+                developer="OpenAI",
+                description="最先端の大規模言語モデル。テキスト生成、会話、コンテンツ作成に優れています。",
+                category="テキスト生成",
+                features="複雑な会話、コードの生成と説明、長文の要約",
+                pricing="有料サブスクリプション",
+                api_access=True,
+                tags="LLM,AI,テキスト生成",
+                notes="GPT-3.5と比較して複雑なタスクの処理能力が向上"
+            ),
+            AITool(
+                name="DALL-E 3",
+                url="https://openai.com/dall-e-3",
+                developer="OpenAI",
+                description="テキスト入力から高品質な画像を生成するAIシステム。",
+                category="画像生成",
+                features="テキストプロンプトからの画像生成、スタイル調整、解像度のカスタマイズ",
+                pricing="クレジット制",
+                api_access=True,
+                tags="画像生成,生成AI,OpenAI",
+                notes="詳細なプロンプトほど良い結果が得られる"
+            ),
+            AITool(
+                name="Midjourney",
+                url="https://www.midjourney.com/",
+                developer="Midjourney, Inc.",
+                description="テキストから芸術的な画像を生成するAI。Discord内で動作します。",
+                category="画像生成",
+                features="高品質な画像生成、細かいスタイル調整、バリエーション作成",
+                pricing="月額サブスクリプション",
+                api_access=False,
+                tags="画像生成,Discord,アート",
+                notes="非常に芸術的な画像を生成できる"
+            ),
+        ]
+        db.session.add_all(demo_tools)
+        db.session.commit()
 
 CATEGORIES = [
     'テキスト生成',
